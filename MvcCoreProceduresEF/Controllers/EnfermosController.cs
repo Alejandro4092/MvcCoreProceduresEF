@@ -17,5 +17,28 @@ namespace MvcCoreProceduresEF.Controllers
             List<Enfermo> enfermos = await this.repo.GetEnfermosAsync();
             return View(enfermos);
         }
+        public async Task<IActionResult> Details(string inscripcion)
+        {
+            Enfermo enfermo = await this.repo.FindEnfermoAsync(inscripcion);
+            return View(enfermo);
+        }
+        public async Task<IActionResult> Delete(string inscripcion)
+        {
+            //await this.repo.DelteEnfermoAsync(inscripcion);
+            await this.repo.DeleteENfermoRawAsync(inscripcion);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Create()
+        {
+          
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Enfermo enfermo)
+        {
+            await this.repo.InsertEnfermoAsynx(enfermo.Apellido,enfermo.Direccion,enfermo.FechaNacimiento,enfermo.Genero,enfermo.Nss);
+            return RedirectToAction("Index");
+        }
     }
 }

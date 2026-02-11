@@ -1,0 +1,44 @@
+﻿@model List<Doctor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>DOCTORES ESPECIALIDADES</h1>
+
+<div class="form-group">
+    <label for="especialidad">Seleccione una especialidad:</label>
+    <select id="especialidad" name="especialidad" class="form-control">
+        <option value="">-- Todas las especialidades --</option>
+        @foreach (var item in Model.Select(d => d.Especialidad).Distinct())
+        {
+            <option value="@item">@item</option>
+        }
+    </select>
+</div>
+
+<h1>Lista de Doctores</h1>
+@if(Model != null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>IdDoctor</th>
+                <th>Apellido</th>
+                <th>Especialidad</th>
+                <th>Salario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) 
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.IdDoctor)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Especialidad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Salario)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
